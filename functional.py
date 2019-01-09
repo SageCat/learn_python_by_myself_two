@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 # Author:Sage Guo
+from functools import partial
 
 
 def func(x, y, f):
@@ -157,14 +158,58 @@ def foo():
 	return 2
 
 
-# 一般装饰器都写两层，返回一个句柄，为了防止不显示调用就被调用
+# 一般装饰器都写两层，返回一个句柄，为了防止不显示调用时封装器也会被调用
 def wrapper(func):
 	def inner():
-		print('before func')
+		print('before func---1')
 		# func()
+		func()
 		print('func name is ', func.__name__)
-		print('after func')
+		print('after func----1')
 	return inner
+
+
+def wrapper2(func):
+	def inner():
+		print('before func---2')
+		# func()
+		func()
+		print('func name is ', func.__name__)
+		print('after func----2')
+	return inner
+
+
+# 带有两个参数的装饰器
+def wrapper_with_parameter(func):
+	def inner(a, b):
+		print('before inner')
+		print('sum is ', func(a, b))
+		print('after inner')
+	return inner
+
+
+def wrapper_with_multi_parameter(func):
+	def inner(*args, **kwargs):
+		print('before inner')
+		result = func(*args, **kwargs)
+		print('the value of %s is %d'%(func.__name__, result))
+		print('after inner')
+	return inner
+
+
+@wrapper_with_parameter
+def func_with_parameter(a, b):
+	return a + b
+
+
+@wrapper_with_multi_parameter
+def func_sum_two_num(a, b):
+	return a + b
+
+
+@wrapper_with_multi_parameter
+def func_sum_three_num(a, b, c):
+	return a + b + c
 
 
 # def wrapper(func):
@@ -175,6 +220,7 @@ def wrapper(func):
 # 	return func
 
 
+@wrapper2
 @wrapper
 def func1():
 	print('func 1------')
@@ -193,4 +239,15 @@ print('----------------')
 # decorate()
 # print(decorate_two)
 # decorate_two()
-print(func1())
+# func1()
+func_with_parameter(1, 2)
+print('----------------')
+func_sum_two_num(3, 4)
+print('----------------')
+func_sum_three_num(1, 2, 8)
+
+# use functools中的偏函数
+int_binary = partial(int, base=8)
+print(int_binary('101000'))
+
+
