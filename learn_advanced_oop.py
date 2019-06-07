@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 # Author:Sage Guo
 from types import MethodType
-import numpy as np
 
 
 class Student(object):
