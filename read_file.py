@@ -1,7 +1,11 @@
 import pathlib as path
 import pandas as pd
+import numpy as np
 
-# pd.readcsv(path.Path().joinpath('data', 'date_data.csv'))
-pd.readcsv(path.Path().joinpath('data', 'date_data.csv'))
-# pd.readcsv("./data/date_data.csv")
-# print(path.Path().joinpath('data', 'date_data.csv'))
+date_data = pd.read_csv(path.Path().joinpath('data', 'date_data.csv'))
+
+print(date_data)
+
+x_axis = np.linspace(1, 1, 100)
+# %%
+n_random = np.random.random((100, 100))
