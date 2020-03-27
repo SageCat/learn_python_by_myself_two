@@ -5,6 +5,8 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="learn_advanced_oop.Student.*" />
+          <option value="set.__getitem__" />
+          <option value="dict.iteritems" />
         </list>
       </option>
     </inspection_tool>
